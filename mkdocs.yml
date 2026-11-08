@@ -1,0 +1,202 @@
+site_name: TimeCopilot
+site_description: The GenAI Forecasting Agent · LLMs x Foundation Time Series Models
+site_author: AzulGarza
+strict: true
+site_url: https://timecopilot.dev
+
+repo_name: TimeCopilot/timecopilot
+repo_url: https://github.com/TimeCopilot/timecopilot
+edit_uri: edit/main/docs
+
+watch:
+  - "README.md"
+  - timecopilot
+
+nav:
+  - Home: index.md
+  - Getting Started: 
+      - Introduction: getting-started/introduction.md
+      - Quickstart: getting-started/quickstart.md
+      - Installation: getting-started/installation.md
+      - Time Series Model Hub: model-hub.md
+      - Forecasting Parameters: forecasting-parameters.md
+  - Examples:
+      - examples/index.md
+      - Core Workflows:
+          - Forecaster Quickstart: examples/forecaster-quickstart.ipynb
+          - Anomaly Detection: examples/anomaly-detection-forecaster-quickstart.ipynb
+          - Cryptocurrency Walkthrough: examples/cryptocurrency-quickstart.ipynb
+      - Agent and LLMs:
+          - Agent Quickstart: examples/agent-quickstart.ipynb
+          - LLM Providers: examples/llm-providers.ipynb
+          - AWS Bedrock: examples/aws-bedrock.ipynb
+          - Google LLMs: examples/google-llms.ipynb
+          - Explaining Models and Ensembles: examples/explaining-foundation-models-and-ensembles.ipynb
+      - Foundation Models:
+          - Compare Foundation Models: examples/ts-foundation-models-comparison-quickstart.ipynb
+          - Family Guides:
+              - Chronos: examples/chronos-family.ipynb
+              - TimesFM: examples/timesfm-family.ipynb
+              - PatchTST-FM: examples/patchtst-fm-family.ipynb
+              - T0: examples/t0-family.ipynb
+              - Timestral: examples/timestral-family.ipynb
+              - TimeH2O: examples/timeh2o-family.ipynb
+              - TiRex: examples/tirex-family.ipynb
+              - TabPFN: examples/tabpfn-family.ipynb
+              - Tabby: examples/tabby-family.ipynb
+              - Toto: examples/toto-family.ipynb
+          - Finetuning: examples/finetuning.ipynb
+      - Benchmarks and Ensembles:
+          - GIFT-Eval: examples/gift-eval.ipynb
+          - Custom Ensembles: examples/custom-ensembles.ipynb
+      - Integrations:
+          - sktime: examples/sktime.ipynb
+  - API Reference:
+      - api/agent.md
+      - api/forecaster.md
+      - api/models/foundation/models.md
+      - api/models/stats.md
+      - api/models/prophet.md
+      - api/models/ml.md
+      - api/models/neural.md
+      - api/models/ensembles.md
+      - api/models/adapters/adapters.md
+      - api/models/utils/forecaster.md
+      - api/gift-eval/gift-eval.md
+  - Experiments:
+      - experiments/gift-eval.md
+      - experiments/fev.md
+  - Changelogs:
+      - changelogs/index.md
+      - changelogs/v0.0.40.md
+      - changelogs/v0.0.39.md
+      - changelogs/v0.0.38.md
+      - changelogs/v0.0.37.md
+      - changelogs/v0.0.36.md
+      - changelogs/v0.0.35.md
+      - changelogs/v0.0.34.md
+      - changelogs/v0.0.33.md
+      - changelogs/v0.0.32.md
+      - changelogs/v0.0.31.md
+      - changelogs/v0.0.30.md
+      - changelogs/v0.0.29.md
+      - changelogs/v0.0.28.md
+      - changelogs/v0.0.27.md
+      - changelogs/v0.0.26.md
+      - changelogs/v0.0.25.md
+      - changelogs/v0.0.24.md
+      - changelogs/v0.0.23.md
+      - changelogs/v0.0.22.md
+      - changelogs/v0.0.21.md
+      - changelogs/v0.0.20.md
+      - changelogs/v0.0.19.md
+      - changelogs/v0.0.18.md
+      - changelogs/v0.0.17.md
+      - changelogs/v0.0.16.md
+      - changelogs/v0.0.15.md
+      - changelogs/v0.0.14.md
+      - changelogs/v0.0.13.md
+      - changelogs/v0.0.12.md
+      - changelogs/v0.0.11.md
+      - changelogs/v0.0.10.md
+  - Community:
+      - Getting Help: community/help.md
+      - Contributing: contributing.md
+      - Roadmap: community/roadmap.md
+  - Blog:
+    - blog/index.md
+
+theme:
+  name: "material"
+  custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme)"
+      primary: custom
+      accent: light-blue
+      toggle:
+        icon: material/brightness-auto
+        name: "Switch to light mode"
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: light-blue
+      toggle:
+        icon: material/brightness-7
+        name: "Switch to dark mode"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: light-blue
+      toggle:
+        icon: material/brightness-4
+        name: "Switch to system preference"
+  features:
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - navigation.path
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.footer
+    - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+- attr_list
+- admonition
+- pymdownx.details
+- footnotes
+- pymdownx.emoji:
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+- pymdownx.magiclink
+- pymdownx.snippets:
+    base_path: ["."]
+    check_paths: true
+- pymdownx.superfences
+- pymdownx.tabbed:
+    alternate_style: true
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
+- def_list
+- pymdownx.tasklist:
+    custom_checkbox: true
+- tables
+
+plugins:
+  - blog:
+      post_url_format: "{slug}"
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [timecopilot]
+          options:
+            preload_modules:
+              - foundationforecast
+              - timecopilot_gift_eval
+            relative_crossrefs: true
+            members_order: source
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+            group_by_category: false
+            heading_level: 3
+            inherited_members: true
+            members: true
+            merge_init_into_class: true
+          extensions:
+            - griffe_inherited_docstrings:
+                merge: true
+
+copyright: 2026 - TimeCopilot

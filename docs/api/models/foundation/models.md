@@ -1,0 +1,79 @@
+# `timecopilot.models.foundation`
+
+::: timecopilot.models.foundation.chronos
+    options:
+        members:
+            - Chronos
+            - ChronosFinetuningConfig
+
+::: timecopilot.models.foundation.flowstate
+    options:
+        members:
+            - FlowState
+
+::: timecopilot.models.foundation.moirai
+    options:
+        members:
+            - Moirai
+
+::: timecopilot.models.foundation.patchtst_fm
+    options:
+        members:
+            - PatchTSTFM
+
+::: timecopilot.models.foundation.sundial
+    options:
+        members:
+            - Sundial
+
+::: timecopilot.models.foundation.t0
+    options:
+        members:
+            - T0
+
+
+::: timecopilot.models.foundation.tabby
+    options:
+        members:
+            - Tabby
+
+::: timecopilot.models.foundation.tafsut
+    options:
+        members:
+            - Tafsut
+
+::: timecopilot.models.foundation.tabpfn
+    options:
+        members:
+            - TabPFN
+
+::: timecopilot.models.foundation.timegpt
+    options:
+        members:
+            - TimeGPT
+            - TimeGPTFinetuningConfig
+
+::: timecopilot.models.foundation.timeh2o
+    options:
+        members:
+            - TimeH2O
+
+::: timecopilot.models.foundation.timesfm
+    options:
+        members:
+            - TimesFM
+
+::: timecopilot.models.foundation.timestral
+    options:
+        members:
+            - Timestral
+
+::: timecopilot.models.foundation.tirex
+    options:
+        members:
+            - TiRex
+
+::: timecopilot.models.foundation.toto
+    options:
+        members:
+            - Toto

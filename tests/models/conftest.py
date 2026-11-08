@@ -1,0 +1,216 @@
+import sys
+
+import pytest
+
+from timecopilot.models.ensembles.median import MedianEnsemble
+from timecopilot.models.foundation.chronos import Chronos
+from timecopilot.models.foundation.moirai import Moirai
+from timecopilot.models.foundation.tafsut import Tafsut
+from timecopilot.models.foundation.timesfm import TimesFM
+from timecopilot.models.foundation.toto import Toto
+from timecopilot.models.ml import (
+    AutoElasticNet,
+    AutoLGBM,
+    AutoLinearRegression,
+    AutoXGBoost,
+)
+from timecopilot.models.neural import (
+    AutoNBEATS,
+    AutoNHITS,
+    AutoPatchTST,
+    AutoTFT,
+)
+from timecopilot.models.prophet import Prophet
+from timecopilot.models.stats import (
+    ADIDA,
+    AutoARIMA,
+    SeasonalNaive,
+    ZeroModel,
+)
+
+
+@pytest.fixture(autouse=True)
+def disable_mps_session(monkeypatch):
+    # Make torch.backends.mps report unavailable
+    try:
+        import torch
+
+        monkeypatch.setattr(
+            torch.backends.mps, "is_available", lambda: False, raising=False
+        )
+        monkeypatch.setattr(
+            torch.backends.mps, "is_built", lambda: False, raising=False
+        )
+    except Exception:
+        # torch might not be installed in some envs; ignore
+        pass
+
+
+models = [
+    AutoLGBM(num_samples=2, cv_n_windows=2),
+    AutoLinearRegression(num_samples=2, cv_n_windows=2),
+    AutoXGBoost(num_samples=2, cv_n_windows=2),
+    AutoElasticNet(num_samples=2, cv_n_windows=2),
+    AutoNHITS(
+        num_samples=2,
+        config=dict(
+            max_steps=1,
+            val_check_steps=1,
+            input_size=12,
+            mlp_units=3 * [[8, 8]],
+        ),
+    ),
+    AutoTFT(
+        num_samples=2,
+        config=dict(
+            max_steps=1,
+            val_check_steps=1,
+            input_size=12,
+            hidden_size=8,
+        ),
+    ),
+    AutoNBEATS(
+        num_samples=2,
+        config=dict(
+            max_steps=1,
+            val_check_steps=1,
+            input_size=12,
+            n_harmonics=1,
+            n_polynomials=1,
+            stack_types=["identity"],
+        ),
+    ),
+    AutoPatchTST(
+        num_samples=2,
+        config=dict(
+            max_steps=1,
+            val_check_steps=1,
+            input_size=12,
+            hidden_size=8,
+            n_heads=2,
+        ),
+    ),
+    AutoARIMA(),
+    SeasonalNaive(),
+    ZeroModel(),
+    ADIDA(),
+    Prophet(),
+    Chronos(repo_id="amazon/chronos-bolt-tiny", alias="Chronos-Bolt"),
+    Chronos(repo_id="amazon/chronos-2", alias="Chronos-2"),
+    Chronos(repo_id="amazon/chronos-2", alias="Chronos-2", batch_size=2),
+    Toto(context_length=256, batch_size=2),
+    Toto(
+        repo_id="Datadog/Toto-2.0-4m",
+        alias="Toto-2",
+        context_length=256,
+        batch_size=2,
+    ),
+    Moirai(
+        context_length=256,
+        batch_size=2,
+        repo_id="Salesforce/moirai-1.1-R-small",
+    ),
+    TimesFM(
+        repo_id="google/timesfm-1.0-200m-pytorch",
+        context_length=256,
+    ),
+    TimesFM(
+        repo_id="google/timesfm-2.5-200m-pytorch",
+        context_length=256,
+    ),
+    TimesFM(
+        repo_id="google/timesfm-3.0-pytorch",
+        context_length=256,
+    ),
+    MedianEnsemble(
+        models=[
+            Chronos(repo_id="amazon/chronos-t5-tiny", alias="Chronos-T5"),
+            Chronos(repo_id="amazon/chronos-bolt-tiny", alias="Chronos-Bolt"),
+            SeasonalNaive(),
+        ],
+    ),
+    Moirai(
+        context_length=256,
+        batch_size=2,
+        repo_id="Salesforce/moirai-2.0-R-small",
+    ),
+    Tafsut(context_length=512, batch_size=2),
+]
+if sys.version_info >= (3, 11):
+    from timecopilot.models.foundation.tirex import TiRex
+
+    models.append(TiRex())
+    models.append(
+        TiRex(
+            repo_id="NX-AI/TiRex-2",
+            alias="TiRex-2",
+            batch_size=2,
+        )
+    )
+
+if (3, 11) <= sys.version_info < (3, 14):
+    from timecopilot.models.foundation.t0 import T0
+
+    models.append(T0(context_length=256, batch_size=2))
+    models.append(
+        T0(
+            repo_id="theforecastingcompany/t0-beta",
+            alias="t0-beta",
+            context_length=256,
+            batch_size=2,
+        )
+    )
+
+if (3, 11) <= sys.version_info < (3, 14):
+    from timecopilot.models.foundation.flowstate import FlowState
+    from timecopilot.models.foundation.patchtst_fm import PatchTSTFM
+
+    models.append(FlowState(repo_id="ibm-research/flowstate"))
+    models.append(
+        FlowState(
+            repo_id="ibm-granite/granite-timeseries-flowstate-r1",
+            alias="FlowState-Granite",
+        )
+    )
+    models.append(PatchTSTFM(context_length=2_048, batch_size=32))
+    models.append(
+        PatchTSTFM(
+            repo_id="ibm-granite/granite-timeseries-patchtst-fm-r1",
+            alias="Granite-PatchTST-FM-r1",
+            context_length=2_048,
+            batch_size=32,
+        )
+    )
+    models.append(
+        PatchTSTFM(
+            repo_id="ibm-granite/granite-timeseries-patchtst-fm-r2",
+            alias="Granite-PatchTST-FM-r2",
+            context_length=2_048,
+            batch_size=32,
+        )
+    )
+
+if sys.version_info < (3, 13):
+    from contextlib import contextmanager
+
+    import numpy as np
+    import pandas as pd
+    from tabpfn_time_series import TimeSeriesDataFrame
+
+    from timecopilot.models.foundation.tabpfn import TabPFN
+
+    class _MockTabPFNPredictor:
+        def predict(self, train_tsdf, test_tsdf, quantiles=None):
+            result = {"target": np.full(len(test_tsdf), 1.0)}
+            if quantiles is not None:
+                for q in quantiles:
+                    result[q] = np.full(len(test_tsdf), q)
+            return TimeSeriesDataFrame(pd.DataFrame(result, index=test_tsdf.index))
+
+    @contextmanager
+    def _mock_get_model(_self):
+        yield _MockTabPFNPredictor()
+
+    tabpfn_model = TabPFN()
+    tabpfn_model._get_model = lambda: _mock_get_model(tabpfn_model)  # type: ignore[method-assign, assignment]
+    models.append(tabpfn_model)
