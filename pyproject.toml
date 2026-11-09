@@ -62,7 +62,7 @@ classifiers = [
 # list:
 # accelerate arch black datasets fsspec hydra-core lightning lightning-utilities matplotlib opentelemetry-api opentelemetry-instrumentation opentelemetry-sdk optuna plotly pytorch-lightning ray statsforecast tensorboard torchmetrics wandb
 dependencies = [
-  "accelerate>=1.10.1",
+  "accelerate>=1.15.0",
   "arch>=7.2.0",
   "black>=25.9.0",
   "catboost>=1.2.10",
